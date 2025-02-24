@@ -117,7 +117,7 @@ Table of Contents
 2.1.2.  The "__HttpOnlyHost-" prefix
 
    If a cookie's name begins with a case-sensitive match for the string
-   __HttpOnly-, then the cookie MUST also be:
+   __HttpOnlyHost-, then the cookie MUST also be:
 
    1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
    With the HttpOnly attribute. 4) A Path attribute with a value of /,
