@@ -63,12 +63,16 @@ Table of Contents
 
    1.  Introduction
      1.1.  Conventions and Definitions
-   2.  Cookie Name Prefixes
-     2.1.  The "__HttpOnly-" prefix
-     2.2.  The "__HttpOnlyHost-" prefix
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+   2.  Server Requirements
+     2.1.  Cookie Name Prefixes
+       2.1.1.  The "__HttpOnly-" prefix
+       2.1.2.  The "__HttpOnlyHost-" prefix
+   3.  User Agent Requirements
+     3.1.  Cookie Name Prefixes
+       3.1.1.  Storage Model
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Normative References
    Acknowledgments
    Author's Address
 
@@ -98,37 +102,76 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-2.  Cookie Name Prefixes
+2.  Server Requirements
 
-2.1.  The "__HttpOnly-" prefix
+2.1.  Cookie Name Prefixes
+
+2.1.1.  The "__HttpOnly-" prefix
 
    If a cookie's name begins with a case-sensitive match for the string
-   __HttpOnly-, then the cookie will only be set if the cookie is set:
+   __HttpOnly-, then the cookie MUST also be:
 
    1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
    With the HttpOnly attribute.
 
-2.2.  The "__HttpOnlyHost-" prefix
+2.1.2.  The "__HttpOnlyHost-" prefix
 
    If a cookie's name begins with a case-sensitive match for the string
-   __HttpOnly-, then the cookie will only be set if the cookie is set:
+   __HttpOnly-, then the cookie MUST also be:
 
    1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
    With the HttpOnly attribute. 4) A Path attribute with a value of /,
    and no Domain attribute.
 
-3.  Security Considerations
+3.  User Agent Requirements
+
+3.1.  Cookie Name Prefixes
+
+   User agents' requirements for cookie name prefixes differ slightly
+   from servers', as UAs MUST match the prefix string case-
+   insensitively.
+
+3.1.1.  Storage Model
+
+   Add the following steps after step 21 of section 5.7 in [COOKIES].
+
+   1.  If the cookie-name begins with a case-insensitive match for the
+       string "__HttpOnly-",
+
+       1.  Abort these steps and ignore the cookie entirely unless all
+           the following conditions are true:
+
+           1.  The cookie's secure-only-flag is true.
+
+           2.  The cookie's http-only-flag is true.
+
+   2.  If the cookie-name begins with a case-insensitive match for the
+       string "__HttpOnly-",
+
+       1.  Abort these steps and ignore the cookie entirely unless all
+           the following conditions are true:
+
+           1.  The cookie's secure-only-flag is true.
+
+           2.  The cookie's http-only-flag is true.
+
+           3.  The cookie's host-only-flag is true.
+
+           4.  The cookie-attribute-list contains an attribute with an
+               attribute-name of "Path", and the cookie's path is /
+
+4.  Security Considerations
 
    There are no particular security considerations.  These new prefixes
    will only limit the ability of non-compliant cookies to be set.  They
    do not open up new capabilities for server to set cookies where they
    previously could not.
 
-4.  IANA Considerations
+5.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+6.  Normative References
 
    [COOKIES]  "Cookies HTTP State Management Mechanism", February 2025,
               <https://datatracker.ietf.org/doc/draft-ietf-httpbis-
