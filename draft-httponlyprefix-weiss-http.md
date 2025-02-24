@@ -51,6 +51,11 @@ author:
 
 normative:
 
+  COOKIES:
+    title: Cookies HTTP State Management Mechanism
+    date: 20 February 2025
+    target: https://datatracker.ietf.org/doc/draft-ietf-httpbis-rfc6265bis/
+
 informative:
 
 
@@ -65,11 +70,12 @@ that ensure the cookie was set with an HttpOnly attribute.
 # Introduction
 
 There are cases where it's important to distinguish on the server side
-between cookies that were set by the server and ones that were set by the
-client.
-One such case are cookies that are normally *always* set by the server,
+between cookies {{COOKIES}} that were set by the server and
+ones that were set by the client.
+
+One such case is cookies that are normally *always* set by the server,
 unless some unexpected code (an XSS exploit, a malicious extension, a
-commit from a confused developer, etc) happens to set them on the client.
+commit from a confused developer, etc.) happens to set them on the client.
 
 This draft add a signal that would enable servers to make such a distinction.
 
