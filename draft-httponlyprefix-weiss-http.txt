@@ -2,7 +2,7 @@
 
 
 
-WG Working Group                                                Y. Weiss
+Network Working Group                                           Y. Weiss
 Internet-Draft                                                   Shopify
 Intended status: Informational                          24 February 2025
 Expires: 28 August 2025
@@ -21,16 +21,12 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-httponlyprefix-
-   weiss-http/.
-
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   https://yoavweiss.github.io/httponly_prefix/draft-httponlyprefix-
+   weiss-http.html.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-httponlyprefix-weiss-http/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/yoavweiss/httponly_prefix.
 
 Status of This Memo
 
@@ -79,11 +75,13 @@ Table of Contents
 1.  Introduction
 
    There are cases where it's important to distinguish on the server
-   side between cookies that were set by the server and ones that were
-   set by the client.  One such case are cookies that are normally
-   _always_ set by the server, unless some unexpected code (an XSS
-   exploit, a malicious extension, a commit from a confused developer,
-   etc) happens to set them on the client.
+   side between cookies [COOKIES] that were set by the server and ones
+   that were set by the client.
+
+   One such case is cookies that are normally _always_ set by the
+   server, unless some unexpected code (an XSS exploit, a malicious
+   extension, a commit from a confused developer, etc.) happens to set
+   them on the client.
 
    This draft add a signal that would enable servers to make such a
    distinction.
@@ -131,6 +129,10 @@ Table of Contents
    This document has no IANA actions.
 
 5.  Normative References
+
+   [COOKIES]  "Cookies HTTP State Management Mechanism", February 2025,
+              <https://datatracker.ietf.org/doc/draft-ietf-httpbis-
+              rfc6265bis/>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
