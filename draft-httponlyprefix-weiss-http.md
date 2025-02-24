@@ -81,7 +81,7 @@ then the cookie MUST also be:
 
 ### The "__HttpOnlyHost-" prefix
 
-If a cookie's name begins with a case-sensitive match for the string __HttpOnly-,
+If a cookie's name begins with a case-sensitive match for the string __HttpOnlyHost-,
 then the cookie MUST also be:
 
 1) Using a `Set-Cookie` HTTP header.
