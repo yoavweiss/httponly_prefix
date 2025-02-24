@@ -2,18 +2,19 @@
 
 
 
-WG Working Group                                              Y. N. Here
-Internet-Draft                                    Your Organization Here
+WG Working Group                                                Y. Weiss
+Internet-Draft                                                   Shopify
 Intended status: Informational                          24 February 2025
 Expires: 28 August 2025
 
 
-                           TODO - Your title
-                  draft-todo-yourname-protocol-latest
+                         HttpOnly cookie prefix
+                 draft-httponlyprefix-weiss-http-latest
 
 Abstract
 
-   TODO Abstract
+   This draft introduces the __HttpOnly and __HttpOnlyHost cookie name
+   prefixes that ensure the cookie was set with an HttpOnly attribute.
 
 About This Document
 
@@ -21,8 +22,8 @@ About This Document
 
    The latest revision of this draft can be found at
    https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-todo-yourname-
-   protocol/.
+   be found at https://datatracker.ietf.org/doc/draft-httponlyprefix-
+   weiss-http/.
 
    Discussion of this document takes place on the WG Working Group
    mailing list (mailto:WG@example.com), which is archived at
@@ -65,7 +66,10 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
+     1.1.  Conventions and Definitions
+   2.  Cookie Name Prefixes
+     2.1.  The "__HttpOnly-" prefix
+     2.2.  The "__HttpOnlyHost-" prefix
    3.  Security Considerations
    4.  IANA Considerations
    5.  Normative References
@@ -74,9 +78,21 @@ Table of Contents
 
 1.  Introduction
 
-   TODO Introduction
+   There are cases where it's important to distinguish on the server
+   side between cookies that were set by the server and ones that were
+   set by the client.  One such case are cookies that are normally
+   _always_ set by the server, unless some unexpected code (an XSS
+   exploit, a malicious extension, a commit from a confused developer,
+   etc) happens to set them on the client.
 
-2.  Conventions and Definitions
+   This draft add a signal that would enable servers to make such a
+   distinction.
+
+   More specifically, it defines the __HttpOnly and __HttpOnlyHost
+   prefixes, that make sure that a cookie is not set on the client side
+   using script.
+
+1.1.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -84,9 +100,31 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+2.  Cookie Name Prefixes
+
+2.1.  The "__HttpOnly-" prefix
+
+   If a cookie's name begins with a case-sensitive match for the string
+   __HttpOnly-, then the cookie will only be set if the cookie is set:
+
+   1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
+   With the HttpOnly attribute.
+
+2.2.  The "__HttpOnlyHost-" prefix
+
+   If a cookie's name begins with a case-sensitive match for the string
+   __HttpOnly-, then the cookie will only be set if the cookie is set:
+
+   1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
+   With the HttpOnly attribute. 4) A Path attribute with a value of /,
+   and no Domain attribute.
+
 3.  Security Considerations
 
-   TODO Security
+   There are no particular security considerations.  These new prefixes
+   will only limit the ability of non-compliant cookies to be set.  They
+   do not open up new capabilities for server to set cookies where they
+   previously could not.
 
 4.  IANA Considerations
 
@@ -109,6 +147,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
-   Your Organization Here
-   Email: your.email@example.com
+   Yoav Weiss
+   Shopify
+   Email: yoav@yoav.ws
