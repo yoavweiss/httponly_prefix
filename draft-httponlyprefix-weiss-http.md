@@ -66,26 +66,48 @@ that make sure that a cookie is not set on the client side using script.
 
 {::boilerplate bcp14-tagged}
 
-# Cookie Name Prefixes
+# Server Requirements
 
-## The "__HttpOnly-" prefix
+## Cookie Name Prefixes
+
+### The "__HttpOnly-" prefix
 
 If a cookie's name begins with a case-sensitive match for the string __HttpOnly-,
-then the cookie will only be set if the cookie is set:
+then the cookie MUST also be:
 
 1) Using a `Set-Cookie` HTTP header.
 2) With the Secure attribute.
 3) With the HttpOnly attribute.
 
-## The "__HttpOnlyHost-" prefix
+### The "__HttpOnlyHost-" prefix
 
 If a cookie's name begins with a case-sensitive match for the string __HttpOnly-,
-then the cookie will only be set if the cookie is set:
+then the cookie MUST also be:
 
 1) Using a `Set-Cookie` HTTP header.
 2) With the Secure attribute.
 3) With the HttpOnly attribute.
 4) A Path attribute with a value of /, and no Domain attribute.
+
+# User Agent Requirements
+
+## Cookie Name Prefixes
+User agents' requirements for cookie name prefixes differ slightly from servers', as UAs MUST match the prefix string case-insensitively.
+
+### Storage Model
+Add the following steps after step 21 of section 5.7 in {{COOKIES}}.
+
+1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnly-",
+   1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
+      1. The cookie's secure-only-flag is true.
+      1. The cookie's http-only-flag is true.
+
+1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnly-",
+   1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
+      1. The cookie's secure-only-flag is true.
+      1. The cookie's http-only-flag is true.
+      1. The cookie's host-only-flag is true.
+      1. The cookie-attribute-list contains an attribute with an attribute-name of "Path", and the cookie's path is /
 
 # Security Considerations
 
