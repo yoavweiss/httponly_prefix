@@ -1,0 +1,81 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-02-25T00:09:08.240127+00:00",
+  "repo": "yoavweiss/httponly_prefix",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDON-hv0s6MWb9w",
+      "title": "tweaks to language",
+      "url": "https://github.com/yoavweiss/httponly_prefix/pull/1",
+      "state": "OPEN",
+      "author": "roryhewitt",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Changed the language to indicate that the Server can only _infer_ information about a cookie received in a **Cookie** request header based on the name, since the actual implementation of the requirements occurs on the client.",
+      "createdAt": "2025-02-24T20:46:12Z",
+      "updatedAt": "2025-02-24T20:46:13Z",
+      "baseRepository": "yoavweiss/httponly_prefix",
+      "baseRefName": "main",
+      "baseRefOid": "7a319398ac26d45c59695023c356a5593b192a79",
+      "headRepository": "roryhewitt/httponly_prefix",
+      "headRefName": "main",
+      "headRefOid": "a4be5720d546c33fd04a5a2d9a537747c3c0682f",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
