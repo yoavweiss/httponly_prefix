@@ -68,28 +68,33 @@ that make sure that a cookie is not set on the client side using script.
 
 # Server Requirements
 
+These requirements apply to cookies received in a `Cookie` request header from the client.
+
 ## Cookie Name Prefixes
 
 ### The "__HttpOnly-" prefix
 
 If a cookie's name begins with a case-sensitive match for the string __HttpOnly-,
-then the cookie MUST also be:
+then this indicates that **all** the following are true:
 
-1) Using a `Set-Cookie` HTTP header.
-2) With the Secure attribute.
-3) With the HttpOnly attribute.
+1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server.
+2. The `Set-Cookie` HTTP header included the `Secure` attribute.
+3. The `Set-Cookie` HTTP header included the `HttpOnly` attribute.
 
 ### The "__HttpOnlyHost-" prefix
 
 If a cookie's name begins with a case-sensitive match for the string __HttpOnlyHost-,
-then the cookie MUST also be:
+then this indicates that **all** the following are true:
 
-1) Using a `Set-Cookie` HTTP header.
-2) With the Secure attribute.
-3) With the HttpOnly attribute.
-4) A Path attribute with a value of /, and no Domain attribute.
+1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server
+2. The `Set-Cookie` HTTP header included the `Secure` attribute.
+3. The `Set-Cookie` HTTP header included the `HttpOnly` attribute.
+4. The `Set-Cookie` HTTP header included the `Path` attribute with a value of `/`.
+5. The `Set-Cookie` HTTP header did not include the `Domain` attribute.
 
 # User Agent Requirements
+
+These requirements apply to cookies received in a `Set-Cookie` response header from the server.
 
 ## Cookie Name Prefixes
 User agents' requirements for cookie name prefixes differ slightly from servers', as UAs MUST match the prefix string case-insensitively.
@@ -99,15 +104,16 @@ Add the following steps after step 21 of section 5.7 in {{COOKIES}}.
 
 1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnly-",
    1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
-      1. The cookie's secure-only-flag is true.
-      1. The cookie's http-only-flag is true.
+      1. The cookie's `secure-only-flag` is true.
+      1. The cookie's `http-only-flag` is true.
 
 1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnly-",
    1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
-      1. The cookie's secure-only-flag is true.
-      1. The cookie's http-only-flag is true.
-      1. The cookie's host-only-flag is true.
-      1. The cookie-attribute-list contains an attribute with an attribute-name of "Path", and the cookie's path is /
+      1. The cookie's `secure-only-flag` is true.
+      1. The cookie's `http-only-flag` is true.
+      1. The cookie's `host-only-flag` is true.
+      1. The `cookie-attribute-list` contains an attribute with an `attribute-name` of "Path", and the cookie's path is "/".
+      1. The `cookie-attribute-list` does not contain an attribute with an `attribute-name` of "Domain".
 
 # Security Considerations
 
