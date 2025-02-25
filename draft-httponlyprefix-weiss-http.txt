@@ -4,8 +4,8 @@
 
 Network Working Group                                           Y. Weiss
 Internet-Draft                                                   Shopify
-Intended status: Informational                          24 February 2025
-Expires: 28 August 2025
+Intended status: Informational                          25 February 2025
+Expires: 29 August 2025
 
 
                          HttpOnly cookie prefix
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2025.
+   This Internet-Draft will expire on 29 August 2025.
 
 Copyright Notice
 
@@ -104,26 +104,45 @@ Table of Contents
 
 2.  Server Requirements
 
+   These requirements apply to cookies received in a Cookie request
+   header from the client.
+
 2.1.  Cookie Name Prefixes
 
 2.1.1.  The "__HttpOnly-" prefix
 
    If a cookie's name begins with a case-sensitive match for the string
-   __HttpOnly-, then the cookie MUST also be:
+   __HttpOnly-, then this indicates that *all* the following are true:
 
-   1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
-   With the HttpOnly attribute.
+   1.  The cookie was originally created on the client using a Set-
+       Cookie HTTP header sent from this server.
+
+   2.  The Set-Cookie HTTP header included the Secure attribute.
+
+   3.  The Set-Cookie HTTP header included the HttpOnly attribute.
 
 2.1.2.  The "__HttpOnlyHost-" prefix
 
    If a cookie's name begins with a case-sensitive match for the string
-   __HttpOnlyHost-, then the cookie MUST also be:
+   __HttpOnlyHost-, then this indicates that *all* the following are
+   true:
 
-   1) Using a Set-Cookie HTTP header. 2) With the Secure attribute. 3)
-   With the HttpOnly attribute. 4) A Path attribute with a value of /,
-   and no Domain attribute.
+   1.  The cookie was originally created on the client using a Set-
+       Cookie HTTP header sent from this server
+
+   2.  The Set-Cookie HTTP header included the Secure attribute.
+
+   3.  The Set-Cookie HTTP header included the HttpOnly attribute.
+
+   4.  The Set-Cookie HTTP header included the Path attribute with a
+       value of /.
+
+   5.  The Set-Cookie HTTP header did not include the Domain attribute.
 
 3.  User Agent Requirements
+
+   These requirements apply to cookies received in a Set-Cookie response
+   header from the server.
 
 3.1.  Cookie Name Prefixes
 
@@ -158,7 +177,10 @@ Table of Contents
            3.  The cookie's host-only-flag is true.
 
            4.  The cookie-attribute-list contains an attribute with an
-               attribute-name of "Path", and the cookie's path is /
+               attribute-name of "Path", and the cookie's path is "/".
+
+           5.  The cookie-attribute-list does not contain an attribute
+               with an attribute-name of "Domain".
 
 4.  Security Considerations
 
