@@ -68,13 +68,22 @@ that make sure that a cookie is not set on the client side using script.
 
 # Server Requirements
 
-These requirements apply to cookies received in a `Cookie` request header from the client.
+These requirements apply to cookies set in `Set-Cookie` response headers by the server,
+as well as ones received in a `Cookie` request header from the client.
 
 ## Cookie Name Prefixes
 
 ### The "__HttpOnly-" prefix
 
-If a cookie's name begins with a case-sensitive match for the string __HttpOnly-,
+When setting a cookie using the `Set-Cookie` response header,
+and the cookie's name begins with a case-sensitive match for the string __HttpOnly-,
+then the cookie MUST also include:
+
+1. The Secure attribute.
+2. The HttpOnly attribute.
+
+When a `Cookie` request header is received by the server,
+and the cookie's name begins with a case-sensitive match for the string __HttpOnly-,
 then this indicates that **all** the following are true:
 
 1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server.
@@ -83,7 +92,17 @@ then this indicates that **all** the following are true:
 
 ### The "__HttpOnlyHost-" prefix
 
-If a cookie's name begins with a case-sensitive match for the string __HttpOnlyHost-,
+When setting a cookie using the `Set-Cookie` response header,
+and the cookie's name begins with a case-sensitive match for the string __HttpOnlyHost-,
+then the cookie MUST also:
+
+1. Include the Secure attribute.
+2. Include the HttpOnly attribute.
+3. Include the `Path` attribute with a value of `/`.
+4. Not include the `Domain` attribute.
+
+When a `Cookie` request header is received by the server,
+and the cookie's name begins with a case-sensitive match for the string __HttpOnlyHost-,
 then this indicates that **all** the following are true:
 
 1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server
