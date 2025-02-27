@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-25T00:09:08.240127+00:00",
+  "timestamp": "2025-02-27T00:05:27.748291+00:00",
   "repo": "yoavweiss/httponly_prefix",
   "labels": [
     {
@@ -49,27 +49,106 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDON-hv0s6rkqYb",
+      "title": "Naming proposal `__Session`",
+      "url": "https://github.com/yoavweiss/httponly_prefix/issues/2",
+      "state": "OPEN",
+      "author": "Jxck",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I strongly agree with this proposal. Since I'm wondering why `__Host-` prefix lacks of `HttpOnly`.\nIn general, Session Cookie should have\n\n1. Secure\n1. Path=/\n1. no Domain\n1. HttpOnly\n\nBut last option doesn't covered by `__Host` so I need to add `HttpOnly` too.\n\n```\nSet-Cookie: __Host-session_id=xxxxxxxxxxxxxx; HttpOnly; Max-Age=${maxage}\n```\n\nSo your suggestion for `__HttpOnlyHost` is `__Session` for me.\n\n```\nSet-Cookie: __Session-id=xxxxxxxxxxxxxxx; Max-Age=${maxage}\n```\n\nAnd it explicitly shows it's Cookie for Session Management.\nSo I'd love to propose alternative naming for your proposal.\nThanks.\n",
+      "createdAt": "2025-02-25T14:08:30Z",
+      "updatedAt": "2025-02-25T14:08:30Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
       "id": "PR_kwDON-hv0s6MWb9w",
       "title": "tweaks to language",
       "url": "https://github.com/yoavweiss/httponly_prefix/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "roryhewitt",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Changed the language to indicate that the Server can only _infer_ information about a cookie received in a **Cookie** request header based on the name, since the actual implementation of the requirements occurs on the client.",
       "createdAt": "2025-02-24T20:46:12Z",
-      "updatedAt": "2025-02-24T20:46:13Z",
+      "updatedAt": "2025-02-25T09:54:38Z",
       "baseRepository": "yoavweiss/httponly_prefix",
       "baseRefName": "main",
       "baseRefOid": "7a319398ac26d45c59695023c356a5593b192a79",
       "headRepository": "roryhewitt/httponly_prefix",
       "headRefName": "main",
       "headRefOid": "a4be5720d546c33fd04a5a2d9a537747c3c0682f",
+      "closedAt": "2025-02-25T09:54:38Z",
+      "mergedAt": "2025-02-25T09:54:38Z",
+      "mergedBy": "yoavweiss",
+      "mergeCommit": {
+        "oid": "2a2a9ae03c9a556349ec9302c5115d2b8852b20b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON-hv0s6dV7H4",
+          "commit": {
+            "abbreviatedOid": "a4be572"
+          },
+          "author": "yoavweiss",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-25T07:09:18Z",
+          "updatedAt": "2025-02-25T07:09:19Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "I think we want to have both:\r\n* Requirements on when servers should send a Set-Cookie with an __HttpOnly prefix\r\n* What can they make of Cookie request headers that have that prefix.\r\n\r\nI just included the first and your wording only includes the latter :)\r\n\r\nI'll land this and then tweak. Thanks!!",
+              "createdAt": "2025-02-25T07:09:18Z",
+              "updatedAt": "2025-02-25T07:09:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON-hv0s6dV7KZ",
+          "commit": {
+            "abbreviatedOid": "a4be572"
+          },
+          "author": "yoavweiss",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-25T07:09:24Z",
+          "updatedAt": "2025-02-25T07:09:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDON-hv0s6Mi2LE",
+      "title": "Tweaks to 'Server Requirements' section",
+      "url": "https://github.com/yoavweiss/httponly_prefix/pull/3",
+      "state": "OPEN",
+      "author": "roryhewitt",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Updated to clarify that there are two parts to cookie 'processing' on the server:\r\n\r\n1. The creation of the cookie via a `Set-Cookie` response header\r\n2. The processing of an incoming cookie received in a `Cookie` request header\r\n\r\nI have split them and used normative `MUST` in the former (because it's creating the cookie) and non-normative `indicates that` in the latter (because it's processing a cookie which could have been maliciously created by the client).",
+      "createdAt": "2025-02-25T23:34:25Z",
+      "updatedAt": "2025-02-25T23:34:26Z",
+      "baseRepository": "yoavweiss/httponly_prefix",
+      "baseRefName": "main",
+      "baseRefOid": "9b359772aef95afb504c162f49bd29dd309b25e8",
+      "headRepository": "roryhewitt/httponly_prefix",
+      "headRefName": "main",
+      "headRefOid": "6fde566c4985b6e7b713179314dff32c5293dad8",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
