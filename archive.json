@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T00:05:27.748291+00:00",
+  "timestamp": "2025-03-02T00:05:56.800061+00:00",
   "repo": "yoavweiss/httponly_prefix",
   "labels": [
     {
@@ -62,7 +62,38 @@
       "labels": [],
       "body": "I strongly agree with this proposal. Since I'm wondering why `__Host-` prefix lacks of `HttpOnly`.\nIn general, Session Cookie should have\n\n1. Secure\n1. Path=/\n1. no Domain\n1. HttpOnly\n\nBut last option doesn't covered by `__Host` so I need to add `HttpOnly` too.\n\n```\nSet-Cookie: __Host-session_id=xxxxxxxxxxxxxx; HttpOnly; Max-Age=${maxage}\n```\n\nSo your suggestion for `__HttpOnlyHost` is `__Session` for me.\n\n```\nSet-Cookie: __Session-id=xxxxxxxxxxxxxxx; Max-Age=${maxage}\n```\n\nAnd it explicitly shows it's Cookie for Session Management.\nSo I'd love to propose alternative naming for your proposal.\nThanks.\n",
       "createdAt": "2025-02-25T14:08:30Z",
-      "updatedAt": "2025-02-25T14:08:30Z",
+      "updatedAt": "2025-02-27T01:08:22Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "dveditz",
+          "authorAssociation": "NONE",
+          "body": "Although the term doesn't appear in the cookie spec, most implementors who work with the spec use the term \"session cookie\" to refer to a cookie without a max-age/expires, that the spec says will be retained \n> until \"the current session is over\" (as defined by the user agent).\n\nThe spec has many references to \"session identifier\" as a specific use for the data in a cookie which seems to match the concept you're talking about. Most of the time it wouldn't matter which term you use\u2014people will understand what you meant from the context. The specific context here, however, is \"updating the cookie spec\" and it would be better to be consistent with the \"session identified\" term already used in the spec.\n\nFWIW, many web applications have a domain attribute in their session identifier cookies and could not use a __Host- cookie for that without rewriting their app. We have so far used prefixes related to the cookie attributes, not to a particular use someone might have for it. \"__Session-\" doesn't work for me as a prefix for that reason. If anything I would expect it to mean \"a cookie that lasts until the current (user agent) session is over\" -- that is, one without a max-age which is clearly not what you want.\n\n> Set-Cookie: __Host-session_id=xxxxxxxxxxxxxx; HttpOnly; Max-Age=${maxage}\n\nThis is an INVALID cookie. Cookie prefixes don't magically set implied attributes, they trigger client enforcement that attributes are set a certain way. A `__Host-` cookie MUST have the `Secure` attribute at least (the spec already defines a missing path attribute to default to `path=/`). So the httponly-enforcing `__HttpOnly-` prefix can only be used if the Set-Cookie explicitly sets `HttpOnly` because the default is \"not httponly\".\n\nThe prefixes are a backward-compatible name hack to get some opt-in enforcement into the spec. To \"old\" clients or servers these are just cookie names that work like any other cookie. Newer clients will enforce the rules so your cookies will fail if you forget to include the correct set of attributes. If you make newer clients happy, then old clients benefit from your app creating and updating the cookies in the way your web app devs intended. But that backwards compatibility only works if you actually specify the attributes since \"old\" clients won't magically create them based on the prefixes they know nothing about.\n\n",
+          "createdAt": "2025-02-27T00:36:54Z",
+          "updatedAt": "2025-02-27T01:03:55Z"
+        },
+        {
+          "author": "dveditz",
+          "authorAssociation": "NONE",
+          "body": "The point being that if we renamed `__HttpOnlyHost-` to `__Session-` it wouldn't save you from having to actually specify httponly. You'd still have to say\n`Set-Cookie: __Session-id=xxxxxxxxxxxxxxx; Secure; HttpOnly; Max-Age=${maxage}`",
+          "createdAt": "2025-02-27T01:08:20Z",
+          "updatedAt": "2025-02-27T01:08:20Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDON-hv0s6r2SJD",
+      "title": "__HttpOnly- should reject paths that are not the default \"/\"  (cookie paths are broken)",
+      "url": "https://github.com/yoavweiss/httponly_prefix/issues/4",
+      "state": "OPEN",
+      "author": "dveditz",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Both forms of `__HttpOnly-` prefixes should require the default `path=/`, not just the \"Host-only\" form. If we'd been on the ball we should have required that for `__Secure-`, too, but too late for that.\n\nEven the original rfc6265 was warning people from using paths: https://www.rfc-editor.org/rfc/rfc6265.html#section-4.1.2.4 \n> Although seemingly useful for isolating cookies between different paths within a given host, the Path attribute cannot be relied upon for security (see [Section 8](https://www.rfc-editor.org/rfc/rfc6265.html#section-8)).\n\nIf there's some really good reason to avoid this restriction on `__HttpOnly-`  then for the other form it would be better to use the prefix `__HostHttpOnly-` instead of the proposed `__HttpOnlyHost-` because that will better emphasize the similarity of restrictions with `__Host-`",
+      "createdAt": "2025-02-27T00:56:59Z",
+      "updatedAt": "2025-02-27T00:56:59Z",
       "closedAt": null,
       "comments": []
     }
