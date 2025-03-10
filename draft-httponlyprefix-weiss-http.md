@@ -81,6 +81,7 @@ then the cookie MUST also include:
 
 1. The Secure attribute.
 2. The HttpOnly attribute.
+3. Include the `Path` attribute with a value of `/`.
 
 When a `Cookie` request header is received by the server,
 and the cookie's name begins with a case-sensitive match for the string __HttpOnly-,
@@ -89,6 +90,7 @@ then this indicates that **all** the following are true:
 1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server.
 2. The `Set-Cookie` HTTP header included the `Secure` attribute.
 3. The `Set-Cookie` HTTP header included the `HttpOnly` attribute.
+4. The `Set-Cookie` HTTP header included the `Path` attribute with a value of `/`.
 
 ### The "__HttpOnlyHost-" prefix
 
@@ -125,8 +127,9 @@ Add the following steps after step 21 of section 5.7 in {{COOKIES}}.
    1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
       1. The cookie's `secure-only-flag` is true.
       1. The cookie's `http-only-flag` is true.
+      1. The `cookie-attribute-list` contains an attribute with an `attribute-name` of "Path", and the cookie's path is "/".
 
-1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnly-",
+1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnlyHost-",
    1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
       1. The cookie's `secure-only-flag` is true.
       1. The cookie's `http-only-flag` is true.
