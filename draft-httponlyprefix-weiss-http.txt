@@ -156,7 +156,7 @@ Table of Contents
 
    If a server processes a cookie received in a Cookie request header
    whose name begins with a case-sensitive match for the string
-   __HttpOnlyHost-, this indicates that *all* the following are true:
+   __HostHttpOnly-, this indicates that *all* the following are true:
 
    1.  The cookie was originally created using a Set-Cookie HTTP header
        sent from this server
@@ -244,7 +244,8 @@ Table of Contents
 
 Acknowledgments
 
-   TODO acknowledge.
+   Thanks to Rory Hewitt for his contributions to this draft.  TODO
+   acknowledge.
 
 Author's Address
 
