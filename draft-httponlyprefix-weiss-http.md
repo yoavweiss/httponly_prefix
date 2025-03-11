@@ -107,7 +107,7 @@ the string `__HostHttpOnly-`, then all the following MUST be true:
 #### Cookie processing
 
 If a server processes a cookie received in a `Cookie` request header whose name begins with a case-sensitive
-match for the string `__HttpOnlyHost-`, this indicates that **all** the following are true:
+match for the string `__HostHttpOnly-`, this indicates that **all** the following are true:
 
 1. The cookie was originally created using a `Set-Cookie` HTTP header sent from this server
 2. The `Set-Cookie` HTTP header included the `Secure` attribute.
@@ -156,4 +156,5 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
+Thanks to Rory Hewitt for his contributions to this draft.
 TODO acknowledge.
