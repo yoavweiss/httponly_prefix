@@ -75,37 +75,41 @@ as well as ones received in a `Cookie` request header from the client.
 
 ### The "__HttpOnly-" prefix
 
-When setting a cookie using the `Set-Cookie` response header,
-and the cookie's name begins with a case-sensitive match for the string __HttpOnly-,
-then the cookie MUST also include:
+#### Cookie creation
 
-1. The Secure attribute.
-2. The HttpOnly attribute.
+If a server creates a cookie whose name begins with a case-sensitive match for
+the string `__HttpOnly-`, then all the following MUST be true:
 
-When a `Cookie` request header is received by the server,
-and the cookie's name begins with a case-sensitive match for the string __HttpOnly-,
-then this indicates that **all** the following are true:
+1. The `Set-Cookie` HTTP header MUST include the `Secure` attribute.
+2. The `Set-Cookie` HTTP header MUST include the `HttpOnly` attribute.
 
-1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server.
+#### Cookie processing
+
+If a server processes a cookie received in a `Cookie` request header whose name begins with a case-sensitive
+match for the string `__HttpOnly-`, this indicates that **all** the following are true:
+
+1. The cookie was originally created using a `Set-Cookie` HTTP header sent from this server.
 2. The `Set-Cookie` HTTP header included the `Secure` attribute.
 3. The `Set-Cookie` HTTP header included the `HttpOnly` attribute.
 
 ### The "__HostHttpOnly-" prefix
 
-When setting a cookie using the `Set-Cookie` response header,
-and the cookie's name begins with a case-sensitive match for the string __HostHttpOnly-,
-then the cookie MUST also:
+#### Cookie creation
 
-1. Include the Secure attribute.
-2. Include the HttpOnly attribute.
-3. Include the `Path` attribute with a value of `/`.
-4. Not include the `Domain` attribute.
+If a server uses a `Set-Cookie` HTTP header to create a cookie whose name begins with a case-sensitive match for
+the string `__HostHttpOnly-`, then all the following MUST be true:
 
-When a `Cookie` request header is received by the server,
-and the cookie's name begins with a case-sensitive match for the string __HostHttpOnly-,
-then this indicates that **all** the following are true:
+1. The `Set-Cookie` HTTP header MUST include the `Secure` attribute.
+2. The `Set-Cookie` HTTP header MUST include the `HttpOnly` attribute.
+3. The `Set-Cookie` HTTP header MUST include the `Path` attribute with a value of `/`.
+4. The `Set-Cookie` HTTP header MUST NOT include the `Domain` attribute.
 
-1. The cookie was originally created on the client using a `Set-Cookie` HTTP header sent from this server
+#### Cookie processing
+
+If a server processes a cookie received in a `Cookie` request header whose name begins with a case-sensitive
+match for the string `__HttpOnlyHost-`, this indicates that **all** the following are true:
+
+1. The cookie was originally created using a `Set-Cookie` HTTP header sent from this server
 2. The `Set-Cookie` HTTP header included the `Secure` attribute.
 3. The `Set-Cookie` HTTP header included the `HttpOnly` attribute.
 4. The `Set-Cookie` HTTP header included the `Path` attribute with a value of `/`.
