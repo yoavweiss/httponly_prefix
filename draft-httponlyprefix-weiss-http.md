@@ -41,7 +41,7 @@ informative:
 
 --- abstract
 
-This draft introduces the __HttpOnly and __HttpOnlyHost cookie name prefixes
+This draft introduces the __HttpOnly and __HostHttpOnly cookie name prefixes
 that ensure the cookie was set with an HttpOnly attribute.
 
 
@@ -59,7 +59,7 @@ commit from a confused developer, etc.) happens to set them on the client.
 
 This draft add a signal that would enable servers to make such a distinction.
 
-More specifically, it defines the __HttpOnly and __HttpOnlyHost prefixes,
+More specifically, it defines the __HttpOnly and __HostHttpOnly prefixes,
 that make sure that a cookie is not set on the client side using script.
 
 ## Conventions and Definitions
@@ -68,7 +68,8 @@ that make sure that a cookie is not set on the client side using script.
 
 # Server Requirements
 
-These requirements apply to cookies received in a `Cookie` request header from the client.
+These requirements apply to cookies set in `Set-Cookie` response headers by the server,
+as well as ones received in a `Cookie` request header from the client.
 
 ## Cookie Name Prefixes
 
@@ -91,12 +92,12 @@ match for the string `__HttpOnly-`, this indicates that **all** the following ar
 2. The `Set-Cookie` HTTP header included the `Secure` attribute.
 3. The `Set-Cookie` HTTP header included the `HttpOnly` attribute.
 
-### The "__HttpOnlyHost-" prefix
+### The "__HostHttpOnly-" prefix
 
 #### Cookie creation
 
-If a server creates a cookie whose name begins with a case-sensitive match for
-the string `__HttpOnlyHost-`, then all the following MUST be true:
+If a server uses a `Set-Cookie` HTTP header to create a cookie whose name begins with a case-sensitive match for
+the string `__HostHttpOnly-`, then all the following MUST be true:
 
 1. The `Set-Cookie` HTTP header MUST include the `Secure` attribute.
 2. The `Set-Cookie` HTTP header MUST include the `HttpOnly` attribute.
@@ -128,8 +129,9 @@ Add the following steps after step 21 of section 5.7 in {{COOKIES}}.
    1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
       1. The cookie's `secure-only-flag` is true.
       1. The cookie's `http-only-flag` is true.
+      1. The `cookie-attribute-list` contains an attribute with an `attribute-name` of "Path", and the cookie's path is "/".
 
-1. If the cookie-name begins with a case-insensitive match for the string "__HttpOnly-",
+1. If the cookie-name begins with a case-insensitive match for the string "__HostHttpOnly-",
    1. Abort these steps and ignore the cookie entirely unless all the following conditions are true:
       1. The cookie's `secure-only-flag` is true.
       1. The cookie's `http-only-flag` is true.
