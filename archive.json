@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-11T00:05:29.973830+00:00",
+  "timestamp": "2025-03-13T00:05:40.568543+00:00",
   "repo": "yoavweiss/httponly_prefix",
   "labels": [
     {
@@ -86,15 +86,15 @@
       "id": "I_kwDON-hv0s6r2SJD",
       "title": "__HttpOnly- should reject paths that are not the default \"/\"  (cookie paths are broken)",
       "url": "https://github.com/yoavweiss/httponly_prefix/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "dveditz",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Both forms of `__HttpOnly-` prefixes should require the default `path=/`, not just the \"Host-only\" form. If we'd been on the ball we should have required that for `__Secure-`, too, but too late for that.\n\nEven the original rfc6265 was warning people from using paths: https://www.rfc-editor.org/rfc/rfc6265.html#section-4.1.2.4 \n> Although seemingly useful for isolating cookies between different paths within a given host, the Path attribute cannot be relied upon for security (see [Section 8](https://www.rfc-editor.org/rfc/rfc6265.html#section-8)).\n\nIf there's some really good reason to avoid this restriction on `__HttpOnly-`  then for the other form it would be better to use the prefix `__HostHttpOnly-` instead of the proposed `__HttpOnlyHost-` because that will better emphasize the similarity of restrictions with `__Host-`",
       "createdAt": "2025-02-27T00:56:59Z",
-      "updatedAt": "2025-03-10T15:51:14Z",
-      "closedAt": null,
+      "updatedAt": "2025-03-12T04:41:45Z",
+      "closedAt": "2025-03-12T04:41:44Z",
       "comments": [
         {
           "author": "yoavweiss",
@@ -102,6 +102,27 @@
           "body": "I believe this is fixed with https://github.com/yoavweiss/httponly_prefix/commit/780d70f18584b47ea9bffc773d1edae6a38c2bf9\n\nLet me know if there's anything I missed",
           "createdAt": "2025-03-10T15:51:13Z",
           "updatedAt": "2025-03-10T15:51:13Z"
+        },
+        {
+          "author": "yoavweiss",
+          "authorAssociation": "OWNER",
+          "body": "Hmm. Talking to folks, it seems like there are many viable use-cases for HTTPOnly delivery of path-specific cookies. I'll revert and rename as you requested.",
+          "createdAt": "2025-03-11T07:11:40Z",
+          "updatedAt": "2025-03-11T07:11:40Z"
+        },
+        {
+          "author": "yoavweiss",
+          "authorAssociation": "OWNER",
+          "body": "https://github.com/yoavweiss/httponly_prefix/commit/8de2a3fd0441e3900a68663a006f37e375a95022",
+          "createdAt": "2025-03-11T07:19:51Z",
+          "updatedAt": "2025-03-11T07:19:51Z"
+        },
+        {
+          "author": "dveditz",
+          "authorAssociation": "NONE",
+          "body": "half a win is better than none...",
+          "createdAt": "2025-03-12T04:41:44Z",
+          "updatedAt": "2025-03-12T04:41:44Z"
         }
       ]
     }
@@ -174,26 +195,42 @@
       "id": "PR_kwDON-hv0s6Mi2LE",
       "title": "Tweaks to 'Server Requirements' section",
       "url": "https://github.com/yoavweiss/httponly_prefix/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "roryhewitt",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Updated to clarify that there are two parts to cookie 'processing' on the server:\r\n\r\n1. The creation of the cookie via a `Set-Cookie` response header\r\n2. The processing of an incoming cookie received in a `Cookie` request header\r\n\r\nI have split them and used normative `MUST` in the former (because it's creating the cookie) and non-normative `indicates that` in the latter (because it's processing a cookie which could have been maliciously created by the client).",
       "createdAt": "2025-02-25T23:34:25Z",
-      "updatedAt": "2025-02-25T23:34:26Z",
+      "updatedAt": "2025-03-11T07:27:32Z",
       "baseRepository": "yoavweiss/httponly_prefix",
       "baseRefName": "main",
-      "baseRefOid": "9b359772aef95afb504c162f49bd29dd309b25e8",
+      "baseRefOid": "8de2a3fd0441e3900a68663a006f37e375a95022",
       "headRepository": "roryhewitt/httponly_prefix",
       "headRefName": "main",
-      "headRefOid": "6fde566c4985b6e7b713179314dff32c5293dad8",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "3c0c020eb28ef85c6371b156aac28fb62345f0cc",
+      "closedAt": "2025-03-11T07:27:32Z",
+      "mergedAt": "2025-03-11T07:27:32Z",
+      "mergedBy": "yoavweiss",
+      "mergeCommit": {
+        "oid": "6412dd2391dd68663acd34b80eedeb27a98eb8e7"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDON-hv0s6fVSe-",
+          "commit": {
+            "abbreviatedOid": "3c0c020"
+          },
+          "author": "yoavweiss",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "LGTM",
+          "createdAt": "2025-03-11T07:27:27Z",
+          "updatedAt": "2025-03-11T07:27:27Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
