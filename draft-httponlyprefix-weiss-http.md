@@ -28,6 +28,10 @@ author:
     fullname: Yoav Weiss
     organization: Shopify
     email: yoav@yoav.ws
+ -
+    fullname: Matthew Metzger
+    organization: Shopify
+    email: matthew.o.metzger@gmail.com
 
 normative:
 
