@@ -3,9 +3,9 @@
 
 
 Network Working Group                                           Y. Weiss
-Internet-Draft                                                   Shopify
-Intended status: Informational                             11 March 2025
-Expires: 12 September 2025
+Internet-Draft                                                M. Metzger
+Intended status: Informational                                   Shopify
+Expires: 11 October 2025                                    9 April 2025
 
 
                          HttpOnly cookie prefix
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 September 2025.
+   This Internet-Draft will expire on 11 October 2025.
 
 Copyright Notice
 
@@ -74,7 +74,7 @@ Table of Contents
    5.  IANA Considerations
    6.  Normative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -247,8 +247,13 @@ Acknowledgments
    Thanks to Rory Hewitt for his contributions to this draft.  TODO
    acknowledge.
 
-Author's Address
+Authors' Addresses
 
    Yoav Weiss
    Shopify
    Email: yoav@yoav.ws
+
+
+   Matthew Metzger
+   Shopify
+   Email: matthew.o.metzger@gmail.com
